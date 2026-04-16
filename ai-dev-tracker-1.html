@@ -1,0 +1,1730 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 应用开发学习路径</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #fafaf7;
+  --panel: #ffffff;
+  --ink: #1a1a1a;
+  --ink-2: #4a4a4a;
+  --ink-3: #8a8a8a;
+  --line: #e8e6e1;
+  --line-2: #f0ede7;
+  --accent: #d84315;
+  --accent-soft: #ffe9e1;
+  --done: #2e7d32;
+  --done-soft: #e8f5e9;
+  --gold: #b8860b;
+  --gold-soft: #fdf6e3;
+  --sans: 'Noto Sans SC', -apple-system, sans-serif;
+  --serif: 'Fraunces', Georgia, serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+  min-height: 100vh;
+  padding: 24px 16px 120px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container { max-width: 860px; margin: 0 auto; }
+
+/* ==== Header ==== */
+.header {
+  margin-bottom: 28px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--line);
+}
+
+.header-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.title {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: clamp(28px, 5vw, 40px);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.title em { font-style: italic; color: var(--accent); font-weight: 600; }
+
+.header-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.header-btn {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  color: var(--ink-2);
+  padding: 7px 12px;
+  border-radius: 8px;
+  font-family: var(--sans);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.header-btn:hover {
+  border-color: var(--ink-2);
+  color: var(--ink);
+}
+
+.header-btn svg { width: 14px; height: 14px; }
+
+.subtitle { color: var(--ink-2); font-size: 15px; max-width: 560px; }
+
+.date-badge {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: 8px;
+}
+
+/* ==== Overall ==== */
+.overall {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 20px 24px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.overall-stats { flex: 1; }
+.overall-label {
+  font-size: 11px;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+  font-family: var(--mono);
+}
+.overall-number { font-family: var(--serif); font-size: 32px; font-weight: 700; line-height: 1; }
+.overall-number small { font-size: 16px; color: var(--ink-3); font-weight: 500; }
+
+.overall-bar {
+  flex: 2; height: 8px;
+  background: var(--line-2);
+  border-radius: 100px;
+  overflow: hidden;
+}
+.overall-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), #ff7043);
+  border-radius: 100px;
+  transition: width 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* ==== Portfolio section ==== */
+.portfolio {
+  background: linear-gradient(135deg, #fdf6e3, #faf0d7);
+  border: 1px solid #e8d89a;
+  border-radius: 14px;
+  padding: 20px 24px;
+  margin-bottom: 24px;
+}
+
+.portfolio-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.portfolio-title {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+.work-card {
+  background: white;
+  border: 1px solid #e8d89a;
+  border-radius: 10px;
+  padding: 12px 14px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.work-card:hover {
+  border-color: var(--gold);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(184, 134, 11, 0.1);
+}
+
+.work-card.empty {
+  border-style: dashed;
+  background: transparent;
+  color: var(--ink-3);
+  text-align: center;
+  font-size: 13px;
+  padding: 20px 14px;
+}
+
+.work-name {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.work-desc {
+  font-size: 12px;
+  color: var(--ink-3);
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.work-links {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.work-link {
+  font-size: 11px;
+  color: var(--accent);
+  text-decoration: none;
+  padding: 2px 8px;
+  background: var(--accent-soft);
+  border-radius: 100px;
+  font-family: var(--mono);
+}
+
+.work-link:hover { background: var(--accent); color: white; }
+
+/* ==== Month Cards ==== */
+.month {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  margin-bottom: 14px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.month:hover { border-color: #d4d0c8; }
+
+.month-header {
+  padding: 18px 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  user-select: none;
+  transition: background 0.15s;
+}
+
+.month-header:hover { background: #faf8f4; }
+
+.month-number {
+  font-family: var(--serif);
+  font-size: 14px;
+  font-weight: 600;
+  width: 28px; height: 28px;
+  background: var(--ink);
+  color: var(--bg);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.month.complete .month-number { background: var(--done); }
+
+.month-title-wrap { flex: 1; min-width: 0; }
+
+.month-title {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+  margin-bottom: 2px;
+}
+
+.month-theme {
+  font-size: 13px;
+  color: var(--ink-3);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.month-progress { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+
+.month-progress-text {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-3);
+  min-width: 38px;
+  text-align: right;
+}
+
+.month-ring { width: 30px; height: 30px; position: relative; }
+.month-ring svg { transform: rotate(-90deg); width: 100%; height: 100%; }
+.month-ring-bg { fill: none; stroke: var(--line-2); stroke-width: 3; }
+.month-ring-fill {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 3;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.4s ease;
+}
+.month.complete .month-ring-fill { stroke: var(--done); }
+
+.chevron {
+  width: 16px; height: 16px;
+  transition: transform 0.25s ease;
+  color: var(--ink-3);
+  flex-shrink: 0;
+}
+
+.month.open .chevron { transform: rotate(90deg); }
+
+.month-body {
+  display: none;
+  border-top: 1px solid var(--line-2);
+  padding: 8px 0 14px;
+}
+
+.month.open .month-body { display: block; animation: slideDown 0.25s ease; }
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==== Section ==== */
+.section { padding: 10px 24px 2px; }
+
+.section-title {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line-2);
+}
+
+/* ==== Task ==== */
+.task {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--line-2);
+  position: relative;
+}
+
+.task:last-child { border-bottom: none; }
+
+.checkbox {
+  width: 17px; height: 17px;
+  border: 1.5px solid var(--line);
+  border-radius: 5px;
+  flex-shrink: 0;
+  cursor: pointer;
+  background: var(--bg);
+  position: relative;
+  margin-top: 3px;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkbox:hover { border-color: var(--accent); }
+
+.checkbox.checked { background: var(--done); border-color: var(--done); }
+
+.checkbox.checked::after {
+  content: '';
+  width: 8px; height: 4px;
+  border-left: 2px solid white;
+  border-bottom: 2px solid white;
+  transform: rotate(-45deg) translate(1px, -1px);
+}
+
+.task-content { flex: 1; min-width: 0; }
+
+.task-main {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.task-text {
+  font-size: 14px;
+  color: var(--ink);
+  word-break: break-word;
+  cursor: text;
+  outline: none;
+  padding: 1px 4px;
+  margin: -1px -4px;
+  border-radius: 4px;
+  transition: background 0.15s;
+  flex: 1;
+}
+
+.task-text:hover { background: #faf8f4; }
+.task-text:focus { background: #fff8f3; box-shadow: inset 0 0 0 1px var(--accent-soft); }
+
+.task.done .task-text { text-decoration: line-through; color: var(--ink-3); }
+
+.task-resources-toggle {
+  font-size: 11px;
+  color: var(--ink-3);
+  background: var(--line-2);
+  border: none;
+  padding: 2px 8px;
+  border-radius: 100px;
+  cursor: pointer;
+  font-family: var(--mono);
+  flex-shrink: 0;
+  margin-top: 2px;
+  transition: all 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.task-resources-toggle:hover {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.task-resources-toggle.has-items {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.task-resources {
+  display: none;
+  margin-top: 8px;
+  padding: 10px 12px;
+  background: #faf8f4;
+  border-radius: 8px;
+  border-left: 2px solid var(--accent-soft);
+}
+
+.task-resources.open { display: block; animation: slideDown 0.2s ease; }
+
+.resource {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 0;
+  font-size: 13px;
+}
+
+.resource-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 600;
+  font-family: var(--mono);
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+
+.resource-icon.docs { color: #1976d2; border-color: #bbdefb; background: #e3f2fd; }
+.resource-icon.video { color: #c62828; border-color: #ffcdd2; background: #ffebee; }
+.resource-icon.tool { color: #6a1b9a; border-color: #e1bee7; background: #f3e5f5; }
+.resource-icon.tut { color: #2e7d32; border-color: #c8e6c9; background: #e8f5e9; }
+.resource-icon.book { color: #ef6c00; border-color: #ffe0b2; background: #fff3e0; }
+
+.resource-link {
+  color: var(--ink);
+  text-decoration: none;
+  flex: 1;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.resource-link:hover { color: var(--accent); text-decoration: underline; }
+
+.resource-note {
+  font-size: 11px;
+  color: var(--ink-3);
+  margin-left: 8px;
+  flex-shrink: 0;
+}
+
+.resource-add {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px dashed var(--line);
+}
+
+.resource-add input, .resource-add select {
+  font-family: var(--sans);
+  font-size: 12px;
+  padding: 4px 8px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: white;
+  outline: none;
+}
+
+.resource-add input { flex: 1; min-width: 0; }
+.resource-add input:focus { border-color: var(--accent); }
+.resource-add button {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.task-delete {
+  opacity: 0;
+  background: none;
+  border: none;
+  color: var(--ink-3);
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: all 0.15s;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.task:hover .task-delete { opacity: 1; }
+
+.task-delete:hover { color: var(--accent); background: var(--accent-soft); }
+
+/* ==== Add task ==== */
+.add-task {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 0;
+  cursor: text;
+  color: var(--ink-3);
+  font-size: 14px;
+  transition: color 0.15s;
+}
+
+.add-task:hover { color: var(--accent); }
+
+.add-icon {
+  width: 17px; height: 17px;
+  border: 1.5px dashed var(--line);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 13px;
+  line-height: 1;
+  margin-top: 3px;
+  transition: all 0.15s;
+}
+
+.add-task:hover .add-icon { border-color: var(--accent); color: var(--accent); }
+
+.add-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--ink);
+  padding: 2px 4px;
+  display: none;
+}
+
+.add-input.active { display: block; }
+.add-task.active .add-icon, .add-task.active > span.hint { display: none; }
+
+/* ==== Modal ==== */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  padding: 20px;
+}
+
+.modal-backdrop.open { display: flex; animation: fadeIn 0.2s; }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.modal {
+  background: var(--panel);
+  border-radius: 14px;
+  width: 100%;
+  max-width: 500px;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 24px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+}
+
+.modal h2 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 20px;
+  margin-bottom: 4px;
+}
+
+.modal-sub {
+  color: var(--ink-3);
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+.modal-field { margin-bottom: 14px; }
+
+.modal-label {
+  display: block;
+  font-size: 12px;
+  color: var(--ink-2);
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.modal-input, .modal-textarea {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-family: var(--sans);
+  font-size: 14px;
+  outline: none;
+  background: white;
+}
+
+.modal-input:focus, .modal-textarea:focus { border-color: var(--accent); }
+
+.modal-textarea { min-height: 80px; resize: vertical; }
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.modal-btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  font-family: var(--sans);
+  border: 1px solid var(--line);
+  background: white;
+  color: var(--ink-2);
+}
+
+.modal-btn.primary {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+.modal-btn:hover { border-color: var(--ink-2); }
+.modal-btn.primary:hover { background: #b33200; }
+
+/* Log list */
+.log-list { max-height: 50vh; overflow-y: auto; margin-top: 12px; }
+
+.log-item {
+  padding: 10px 12px;
+  background: #faf8f4;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.log-date {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-3);
+  margin-bottom: 3px;
+}
+
+.log-text { font-size: 13px; color: var(--ink); white-space: pre-wrap; word-break: break-word; }
+
+.log-delete {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  background: none;
+  border: none;
+  color: var(--ink-3);
+  cursor: pointer;
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.log-item:hover .log-delete { opacity: 1; }
+
+.log-empty { text-align: center; color: var(--ink-3); padding: 30px 0; font-size: 13px; }
+
+/* ==== Footer ==== */
+.footer {
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 12px;
+  color: var(--ink-3);
+}
+
+.footer-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.btn {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  color: var(--ink-2);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-family: var(--sans);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btn:hover { border-color: var(--ink-2); color: var(--ink); }
+.btn.danger:hover { border-color: var(--accent); color: var(--accent); }
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--ink);
+  color: var(--bg);
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 13px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  z-index: 100;
+  font-family: var(--sans);
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+/* Celebration */
+.celebrate {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  background: var(--panel);
+  padding: 40px 50px;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  z-index: 200;
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.celebrate.show { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+
+.celebrate-emoji { font-size: 48px; margin-bottom: 8px; }
+.celebrate-title { font-family: var(--serif); font-size: 20px; font-weight: 600; margin-bottom: 4px; }
+.celebrate-text { font-size: 13px; color: var(--ink-3); }
+
+/* Responsive */
+@media (max-width: 640px) {
+  body { padding: 16px 12px 120px; }
+  .overall { flex-direction: column; align-items: stretch; gap: 12px; padding: 16px; }
+  .portfolio { padding: 16px; }
+  .portfolio-grid { grid-template-columns: 1fr; }
+  .month-header { padding: 14px 16px; gap: 10px; }
+  .month-title { font-size: 16px; }
+  .section { padding: 10px 16px 2px; }
+  .header-actions { width: 100%; }
+  .modal { padding: 18px; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <header class="header">
+    <div class="header-top">
+      <div>
+        <h1 class="title">AI 应用开发 <em>路径</em></h1>
+        <div class="date-badge" id="dateBadge">—</div>
+      </div>
+      <div class="header-actions">
+        <button class="header-btn" onclick="openLogModal()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          日志
+        </button>
+        <button class="header-btn" onclick="openWorkModal()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+          作品
+        </button>
+      </div>
+    </div>
+    <p class="subtitle">从零到能就业的 6 个月计划 · 核心是作品集,不是证书</p>
+  </header>
+
+  <!-- Overall -->
+  <div class="overall">
+    <div class="overall-stats">
+      <div class="overall-label">总体进度</div>
+      <div class="overall-number"><span id="donePct">0</span>%<small id="doneCount"> · 0 / 0</small></div>
+    </div>
+    <div class="overall-bar">
+      <div class="overall-bar-fill" id="overallBar" style="width: 0%"></div>
+    </div>
+  </div>
+
+  <!-- Portfolio -->
+  <div class="portfolio" id="portfolioSection">
+    <div class="portfolio-header">
+      <div class="portfolio-title">
+        <span>🏆</span>
+        <span>我的作品集</span>
+      </div>
+      <button class="header-btn" onclick="openWorkModal()" style="background: white;">+ 添加作品</button>
+    </div>
+    <div class="portfolio-grid" id="portfolioGrid"></div>
+  </div>
+
+  <!-- Months -->
+  <div id="monthsContainer"></div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div id="lastSaved">自动保存 · 未改动</div>
+    <div class="footer-actions">
+      <button class="btn" onclick="exportData()">导出</button>
+      <button class="btn" onclick="importData()">导入</button>
+      <button class="btn danger" onclick="resetAll()">重置任务</button>
+    </div>
+  </div>
+</div>
+
+<!-- Log Modal -->
+<div class="modal-backdrop" id="logModal" onclick="if(event.target===this)closeLogModal()">
+  <div class="modal">
+    <h2>今日学习日志</h2>
+    <p class="modal-sub">记录今天学了什么、卡在哪、怎么解决的</p>
+    <div class="modal-field">
+      <textarea class="modal-textarea" id="logInput" placeholder="今天我..." autofocus></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-btn" onclick="closeLogModal()">关闭</button>
+      <button class="modal-btn primary" onclick="saveLog()">保存</button>
+    </div>
+    <div class="log-list" id="logList"></div>
+  </div>
+</div>
+
+<!-- Work Modal -->
+<div class="modal-backdrop" id="workModal" onclick="if(event.target===this)closeWorkModal()">
+  <div class="modal">
+    <h2 id="workModalTitle">添加作品</h2>
+    <p class="modal-sub">填写你完成的项目,求职时直接展示</p>
+    <div class="modal-field">
+      <label class="modal-label">作品名称</label>
+      <input class="modal-input" id="workName" placeholder="例如:智能简历解析器">
+    </div>
+    <div class="modal-field">
+      <label class="modal-label">简短描述</label>
+      <textarea class="modal-textarea" id="workDesc" placeholder="这个项目做什么?用了什么技术?"></textarea>
+    </div>
+    <div class="modal-field">
+      <label class="modal-label">GitHub 链接</label>
+      <input class="modal-input" id="workGithub" placeholder="https://github.com/...">
+    </div>
+    <div class="modal-field">
+      <label class="modal-label">Demo 链接</label>
+      <input class="modal-input" id="workDemo" placeholder="https://...">
+    </div>
+    <div class="modal-actions">
+      <button class="modal-btn" onclick="closeWorkModal()">取消</button>
+      <button class="modal-btn" id="workDeleteBtn" onclick="deleteWork()" style="display:none;color:var(--accent);border-color:var(--accent);">删除</button>
+      <button class="modal-btn primary" onclick="saveWork()">保存</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<div class="celebrate" id="celebrate">
+  <div class="celebrate-emoji" id="celebrateEmoji">🎉</div>
+  <div class="celebrate-title" id="celebrateTitle">完成一个月!</div>
+  <div class="celebrate-text" id="celebrateText">继续保持节奏</div>
+</div>
+
+<script>
+// ============================================================
+// DEFAULT DATA
+// ============================================================
+const DEFAULT_DATA = {
+  months: [
+    {
+      id: 'm1',
+      title: '月 1 · Python 工程化',
+      theme: '从"会写脚本"到"会写服务"',
+      sections: [
+        {
+          title: '核心学习',
+          tasks: [
+            { id: 't1-1', text: '《Python Crash Course》第 3-6 章(列表、循环、字典、if)', done: false,
+              resources: [
+                { type: 'book', title: 'Python Crash Course 官方页面', url: 'https://ehmatthes.github.io/pcc_3e/', note: '第 3 版' }
+              ] },
+            { id: 't1-2', text: '《Crash Course》第 8-10 章(函数、类、文件与异常)', done: false, resources: [] },
+            { id: 't1-3', text: 'Git 进阶:分支、合并、冲突解决', done: false,
+              resources: [
+                { type: 'tut', title: 'Learn Git Branching (交互式)', url: 'https://learngitbranching.js.org/?locale=zh_CN', note: '玩着学' },
+                { type: 'docs', title: 'Pro Git 官方书(中文)', url: 'https://git-scm.com/book/zh/v2' }
+              ] },
+            { id: 't1-4', text: 'FastAPI 官方教程 + Pydantic 模型', done: false,
+              resources: [
+                { type: 'docs', title: 'FastAPI 官方教程(有中文)', url: 'https://fastapi.tiangolo.com/zh/tutorial/', note: '必读' },
+                { type: 'docs', title: 'Pydantic 官方文档', url: 'https://docs.pydantic.dev/' }
+              ] },
+            { id: 't1-5', text: 'SQLite + SQLModel 基础', done: false,
+              resources: [
+                { type: 'docs', title: 'SQLModel 官方文档', url: 'https://sqlmodel.tiangolo.com/', note: 'FastAPI 作者写的' }
+              ] },
+          ]
+        },
+        {
+          title: '产出物',
+          tasks: [
+            { id: 't1-p1', text: '🎯 待办清单 REST API 项目,推 GitHub,README 写清运行方式', done: false, resources: [
+              { type: 'tut', title: 'FastAPI Full Stack Template', url: 'https://github.com/fastapi/full-stack-fastapi-template', note: '参考项目结构' }
+            ] },
+          ]
+        }
+      ]
+    },
+    {
+      id: 'm2',
+      title: '月 2 · LLM API 入门',
+      theme: '第一次让 AI 真正为你干活',
+      sections: [
+        {
+          title: '核心学习',
+          tasks: [
+            { id: 't2-1', text: 'Anthropic / OpenAI API 官方文档', done: false,
+              resources: [
+                { type: 'docs', title: 'Anthropic API 文档', url: 'https://docs.claude.com/', note: '英文原版' },
+                { type: 'docs', title: 'OpenAI API 文档', url: 'https://platform.openai.com/docs' }
+              ] },
+            { id: 't2-2', text: 'Messages API、System Prompt、多轮对话', done: false,
+              resources: [
+                { type: 'docs', title: 'Messages API 参考', url: 'https://docs.claude.com/en/api/messages' }
+              ] },
+            { id: 't2-3', text: 'Tool Use / Function Calling', done: false,
+              resources: [
+                { type: 'docs', title: 'Claude Tool Use 文档', url: 'https://docs.claude.com/en/docs/agents-and-tools/tool-use/overview', note: '核心能力' }
+              ] },
+            { id: 't2-4', text: 'Anthropic Prompt Engineering 官方指南', done: false,
+              resources: [
+                { type: 'docs', title: 'Prompt Engineering Overview', url: 'https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/overview', note: '最高质量资料' },
+                { type: 'tut', title: 'Anthropic Interactive Tutorial', url: 'https://github.com/anthropics/prompt-eng-interactive-tutorial', note: 'Jupyter 教程' }
+              ] },
+            { id: 't2-5', text: 'Python 异步编程基础(async / await)', done: false,
+              resources: [
+                { type: 'docs', title: 'Python asyncio 官方文档', url: 'https://docs.python.org/zh-cn/3/library/asyncio.html' }
+              ] },
+          ]
+        },
+        {
+          title: '产出物',
+          tasks: [
+            { id: 't2-p1', text: '🎯 作品 1:一个你每天真会用的 AI 小工具', done: false, resources: [] },
+          ]
+        }
+      ]
+    },
+    {
+      id: 'm3',
+      title: '月 3 · RAG 深入',
+      theme: '掌握企业级 AI 应用最核心的技术',
+      sections: [
+        {
+          title: '核心学习',
+          tasks: [
+            { id: 't3-1', text: '文档解析:PDF / Word / Markdown', done: false,
+              resources: [
+                { type: 'tool', title: 'pypdf 文档', url: 'https://pypdf.readthedocs.io/' },
+                { type: 'tool', title: 'python-docx 文档', url: 'https://python-docx.readthedocs.io/' }
+              ] },
+            { id: 't3-2', text: 'Chunking 策略与 Embedding 原理', done: false,
+              resources: [
+                { type: 'docs', title: '5 Levels of Text Splitting (by Greg Kamradt)', url: 'https://github.com/FullStackRetrieval-com/RetrievalTutorials/blob/main/tutorials/LevelsOfTextSplitting/5_Levels_Of_Text_Splitting.ipynb', note: '经典教程' }
+              ] },
+            { id: 't3-3', text: 'Chroma 向量数据库实战', done: false,
+              resources: [
+                { type: 'docs', title: 'Chroma 官方文档', url: 'https://docs.trychroma.com/', note: '最容易上手的向量库' }
+              ] },
+            { id: 't3-4', text: 'RAG 优化:查询改写 / 重排序 / 引用定位', done: false,
+              resources: [
+                { type: 'docs', title: 'Anthropic Contextual Retrieval', url: 'https://www.anthropic.com/news/contextual-retrieval', note: '必读' }
+              ] },
+            { id: 't3-5', text: '简单前端:HTML + JS + 轻量 UI 库', done: false,
+              resources: [
+                { type: 'docs', title: 'Pico CSS (无 class 写法)', url: 'https://picocss.com/', note: '最简单的 UI 框架' }
+              ] },
+          ]
+        },
+        {
+          title: '产出物',
+          tasks: [
+            { id: 't3-p1', text: '🎯 作品 2:迷你 NotebookLM 或 简历解析器', done: false, resources: [] },
+          ]
+        }
+      ]
+    },
+    {
+      id: 'm4',
+      title: '月 4 · Agent + 部署',
+      theme: '从"AI 工具"升级到"AI 产品"',
+      sections: [
+        {
+          title: '核心学习',
+          tasks: [
+            { id: 't4-1', text: '选一个 Agent 框架深入(Claude Agent SDK 或 LangGraph)', done: false,
+              resources: [
+                { type: 'docs', title: 'Claude Agent SDK 文档', url: 'https://docs.claude.com/en/api/agent-sdk/overview', note: '推荐优先' },
+                { type: 'docs', title: 'LangGraph 文档', url: 'https://langchain-ai.github.io/langgraph/' }
+              ] },
+            { id: 't4-2', text: '多步推理、工具调用、状态管理', done: false,
+              resources: [
+                { type: 'docs', title: 'Building Effective Agents (Anthropic)', url: 'https://www.anthropic.com/research/building-effective-agents', note: '必读' }
+              ] },
+            { id: 't4-3', text: 'Docker 基础:Dockerfile / docker-compose', done: false,
+              resources: [
+                { type: 'docs', title: 'Docker 官方入门', url: 'https://docs.docker.com/get-started/' },
+                { type: 'tut', title: 'Docker Curriculum(中文翻译版)', url: 'https://docker-curriculum.com/' }
+              ] },
+            { id: 't4-4', text: 'Linux 基础命令 + ssh + 日志', done: false,
+              resources: [
+                { type: 'tut', title: 'Linux 命令大全(鸟哥私房菜)', url: 'https://linux.vbird.org/' }
+              ] },
+            { id: 't4-5', text: '云部署:Railway / Render 或 腾讯云轻量 + 域名', done: false,
+              resources: [
+                { type: 'tool', title: 'Railway(最简单)', url: 'https://railway.app/' },
+                { type: 'tool', title: 'Render', url: 'https://render.com/' }
+              ] },
+          ]
+        },
+        {
+          title: '产出物',
+          tasks: [
+            { id: 't4-p1', text: '🎯 作品 3(主打):有公网 URL、陌生人能用的 Agent 产品', done: false, resources: [] },
+          ]
+        }
+      ]
+    },
+    {
+      id: 'm5',
+      title: '月 5 · 深度 + 表达',
+      theme: '让别人能看到你的能力',
+      sections: [
+        {
+          title: '核心学习',
+          tasks: [
+            { id: 't5-1', text: '专精一个技术点(RAG 优化 / MCP / Agent 记忆)', done: false,
+              resources: [
+                { type: 'docs', title: 'MCP (Model Context Protocol) 官方', url: 'https://modelcontextprotocol.io/', note: '新热点' }
+              ] },
+            { id: 't5-2', text: 'Playwright 浏览器自动化(对标 RPA 加分项)', done: false,
+              resources: [
+                { type: 'docs', title: 'Playwright Python 文档', url: 'https://playwright.dev/python/' }
+              ] },
+          ]
+        },
+        {
+          title: '产出物',
+          tasks: [
+            { id: 't5-p1', text: '🎯 技术博客 2-3 篇', done: false, resources: [
+              { type: 'tool', title: '掘金(国内技术社区)', url: 'https://juejin.cn/' },
+              { type: 'tool', title: 'V2EX', url: 'https://v2ex.com/' }
+            ] },
+            { id: 't5-p2', text: '🎯 一个 Playwright 自动化小工具', done: false, resources: [] },
+            { id: 't5-p3', text: '🎯 GitHub 开源贡献 1-2 次(PR 被合并)', done: false, resources: [
+              { type: 'tool', title: 'Good First Issue 列表', url: 'https://goodfirstissue.dev/', note: '找新手友好的 issue' }
+            ] },
+          ]
+        }
+      ]
+    },
+    {
+      id: 'm6',
+      title: '月 6 · 求职启动',
+      theme: '把积累变成 Offer',
+      sections: [
+        {
+          title: '核心动作',
+          tasks: [
+            { id: 't6-1', text: '搭建作品集网站(静态页,挂 GitHub Pages)', done: false, resources: [
+              { type: 'docs', title: 'GitHub Pages 文档', url: 'https://docs.github.com/pages' }
+            ] },
+            { id: 't6-2', text: '写中文 + 英文两版简历', done: false, resources: [] },
+            { id: 't6-3', text: '收集目标公司狩猎名单(20-30 家,不卡学历)', done: false, resources: [] },
+            { id: 't6-4', text: '模拟面试:录视频讲每个作品的技术决策', done: false, resources: [] },
+            { id: 't6-5', text: 'BOSS / 即刻 / V2EX / Linux Do / Twitter 投递', done: false, resources: [
+              { type: 'tool', title: 'Linux Do 社区', url: 'https://linux.do/' },
+              { type: 'tool', title: '即刻 App', url: 'https://okjike.com/' }
+            ] },
+            { id: 't6-6', text: '直接联系小公司创始人(比海投成功率高 10 倍)', done: false, resources: [] },
+          ]
+        },
+        {
+          title: '产出物',
+          tasks: [
+            { id: 't6-p1', text: '🎯 拿到第一个面试邀请', done: false, resources: [] },
+            { id: 't6-p2', text: '🎯 拿到第一个 Offer', done: false, resources: [] },
+          ]
+        }
+      ]
+    },
+    {
+      id: 'm0',
+      title: '贯穿全程 · 日常习惯',
+      theme: '这些是复利,每天 5 分钟改变命运',
+      sections: [
+        {
+          title: '每日 / 每周',
+          tasks: [
+            { id: 't0-1', text: '每周精读 1 篇 Anthropic / OpenAI 官方英文文档', done: false, resources: [
+              { type: 'tool', title: 'Immersive Translate', url: 'https://immersivetranslate.com/', note: '翻译神器' }
+            ] },
+            { id: 't0-2', text: '每日 1 条学习日志推到 GitHub(learning-journey 仓库)', done: false, resources: [] },
+            { id: 't0-3', text: '卡壳超 30 分钟就问 Claude(要解释,不要代码)', done: false, resources: [] },
+            { id: 't0-4', text: '每月最后一天写月度复盘', done: false, resources: [] },
+          ]
+        }
+      ]
+    }
+  ],
+  works: [],
+  logs: []
+};
+
+// ============================================================
+// STATE
+// ============================================================
+let state = load() || structuredClone(DEFAULT_DATA);
+
+// Migrate old data format if needed
+if (Array.isArray(state)) {
+  state = { months: state, works: [], logs: [] };
+}
+if (!state.works) state.works = [];
+if (!state.logs) state.logs = [];
+
+let saveTimer = null;
+let editingWorkId = null;
+const completedMonths = new Set();
+
+function save() {
+  localStorage.setItem('ai-dev-tracker-v2', JSON.stringify(state));
+  clearTimeout(saveTimer);
+  const el = document.getElementById('lastSaved');
+  el.textContent = '保存中…';
+  saveTimer = setTimeout(() => {
+    const now = new Date();
+    el.textContent = `自动保存 · ${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
+  }, 300);
+}
+
+function load() {
+  try {
+    const raw = localStorage.getItem('ai-dev-tracker-v2') || localStorage.getItem('ai-dev-tracker');
+    return raw ? JSON.parse(raw) : null;
+  } catch { return null; }
+}
+
+// ============================================================
+// RESOURCE TYPE META
+// ============================================================
+const RESOURCE_TYPES = {
+  docs:  { label: '文档', short: 'DOC' },
+  video: { label: '视频', short: 'VID' },
+  tool:  { label: '工具', short: 'TOOL' },
+  tut:   { label: '教程', short: 'TUT' },
+  book:  { label: '书籍', short: 'BOOK' }
+};
+
+// ============================================================
+// RENDER
+// ============================================================
+function render() {
+  renderPortfolio();
+  renderMonths();
+  renderOverall();
+}
+
+function renderOverall() {
+  let totalTasks = 0, doneTasks = 0;
+  state.months.forEach(m => m.sections.forEach(s => s.tasks.forEach(t => {
+    totalTasks++; if (t.done) doneTasks++;
+  })));
+  const pct = totalTasks ? Math.round(doneTasks / totalTasks * 100) : 0;
+  document.getElementById('donePct').textContent = pct;
+  document.getElementById('doneCount').textContent = ` · ${doneTasks} / ${totalTasks}`;
+  document.getElementById('overallBar').style.width = pct + '%';
+}
+
+function renderPortfolio() {
+  const grid = document.getElementById('portfolioGrid');
+  grid.innerHTML = '';
+
+  if (state.works.length === 0) {
+    grid.innerHTML = `
+      <div class="work-card empty" onclick="openWorkModal()">
+        点击这里添加你的第一个作品
+      </div>
+    `;
+    return;
+  }
+
+  state.works.forEach(w => {
+    const card = document.createElement('div');
+    card.className = 'work-card';
+    card.onclick = (e) => {
+      if (e.target.tagName !== 'A') openWorkModal(w.id);
+    };
+    card.innerHTML = `
+      <div class="work-name">${escapeHtml(w.name)}</div>
+      ${w.desc ? `<div class="work-desc">${escapeHtml(w.desc)}</div>` : ''}
+      <div class="work-links">
+        ${w.github ? `<a class="work-link" href="${escapeAttr(w.github)}" target="_blank" rel="noopener">GitHub</a>` : ''}
+        ${w.demo ? `<a class="work-link" href="${escapeAttr(w.demo)}" target="_blank" rel="noopener">Demo</a>` : ''}
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function renderMonths() {
+  const container = document.getElementById('monthsContainer');
+  const openMonths = new Set(
+    [...document.querySelectorAll('.month.open')].map(el => el.dataset.id)
+  );
+  const openResources = new Set(
+    [...document.querySelectorAll('.task-resources.open')].map(el => el.dataset.taskId)
+  );
+
+  container.innerHTML = '';
+
+  state.months.forEach((month) => {
+    const monthEl = document.createElement('div');
+    monthEl.className = 'month' + (openMonths.has(month.id) ? ' open' : '');
+    monthEl.dataset.id = month.id;
+
+    let mTotal = 0, mDone = 0;
+    month.sections.forEach(s => s.tasks.forEach(t => {
+      mTotal++; if (t.done) mDone++;
+    }));
+    const pct = mTotal ? Math.round(mDone / mTotal * 100) : 0;
+    if (pct === 100 && mTotal > 0) {
+      monthEl.classList.add('complete');
+      // Trigger celebration on first time
+      if (!completedMonths.has(month.id) && month.id !== 'm0') {
+        completedMonths.add(month.id);
+        setTimeout(() => celebrate('完成一个月!', `「${month.title}」全部搞定 · 继续保持节奏`), 300);
+      }
+    }
+
+    const circ = 2 * Math.PI * 13;
+    const offset = circ - (pct / 100) * circ;
+
+    monthEl.innerHTML = `
+      <div class="month-header" onclick="toggleMonth('${month.id}')">
+        <div class="month-number">${month.id === 'm0' ? '∞' : month.id.replace('m','')}</div>
+        <div class="month-title-wrap">
+          <div class="month-title">${escapeHtml(month.title)}</div>
+          <div class="month-theme">${escapeHtml(month.theme)}</div>
+        </div>
+        <div class="month-progress">
+          <div class="month-progress-text">${mDone}/${mTotal}</div>
+          <div class="month-ring">
+            <svg viewBox="0 0 32 32">
+              <circle class="month-ring-bg" cx="16" cy="16" r="13"></circle>
+              <circle class="month-ring-fill" cx="16" cy="16" r="13"
+                stroke-dasharray="${circ}" stroke-dashoffset="${offset}"></circle>
+            </svg>
+          </div>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </div>
+      </div>
+      <div class="month-body">
+        ${month.sections.map((section, sIdx) => `
+          <div class="section">
+            <div class="section-title">${escapeHtml(section.title)}</div>
+            ${section.tasks.map(task => renderTask(month.id, sIdx, task, openResources.has(task.id))).join('')}
+            <div class="add-task" onclick="activateAdd(this)">
+              <div class="add-icon">+</div>
+              <span class="hint">添加任务</span>
+              <input class="add-input" type="text" placeholder="输入后按 Enter 添加…"
+                     onblur="addTask('${month.id}', ${sIdx}, this)"
+                     onkeydown="if(event.key==='Enter'){event.preventDefault();this.blur();}">
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+    container.appendChild(monthEl);
+  });
+}
+
+function renderTask(monthId, sIdx, task, isOpen) {
+  const resCount = (task.resources || []).length;
+  return `
+    <div class="task ${task.done ? 'done' : ''}" data-task-id="${task.id}">
+      <div class="checkbox ${task.done ? 'checked' : ''}"
+           onclick="toggleTask('${monthId}','${task.id}')"></div>
+      <div class="task-content">
+        <div class="task-main">
+          <div class="task-text"
+               contenteditable="true"
+               spellcheck="false"
+               onblur="editTask('${monthId}','${task.id}', this.innerText)"
+               onkeydown="handleEnter(event, this)">${escapeHtml(task.text)}</div>
+          <button class="task-resources-toggle ${resCount > 0 ? 'has-items' : ''}"
+                  onclick="toggleResources('${task.id}')"
+                  title="学习资料">
+            📎 ${resCount || '+'}
+          </button>
+        </div>
+        <div class="task-resources ${isOpen ? 'open' : ''}" data-task-id="${task.id}">
+          ${(task.resources || []).map((r, i) => `
+            <div class="resource">
+              <div class="resource-icon ${r.type || 'docs'}">${(RESOURCE_TYPES[r.type] || RESOURCE_TYPES.docs).short}</div>
+              <a class="resource-link" href="${escapeAttr(r.url)}" target="_blank" rel="noopener">${escapeHtml(r.title)}</a>
+              ${r.note ? `<span class="resource-note">${escapeHtml(r.note)}</span>` : ''}
+              <button class="task-delete" onclick="deleteResource('${monthId}','${task.id}', ${i})" style="opacity:1;">×</button>
+            </div>
+          `).join('')}
+          <div class="resource-add">
+            <select id="rtype-${task.id}">
+              <option value="docs">文档</option>
+              <option value="tut">教程</option>
+              <option value="video">视频</option>
+              <option value="tool">工具</option>
+              <option value="book">书</option>
+            </select>
+            <input type="text" id="rtitle-${task.id}" placeholder="标题">
+            <input type="text" id="rurl-${task.id}" placeholder="链接 URL">
+            <button onclick="addResource('${monthId}','${task.id}')">+</button>
+          </div>
+        </div>
+      </div>
+      <button class="task-delete" onclick="deleteTask('${monthId}','${task.id}')" title="删除">×</button>
+    </div>
+  `;
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c =>
+    ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function escapeAttr(s) { return escapeHtml(s); }
+
+// ============================================================
+// TASK ACTIONS
+// ============================================================
+function toggleMonth(id) {
+  document.querySelector(`.month[data-id="${id}"]`).classList.toggle('open');
+}
+
+function toggleResources(taskId) {
+  const el = document.querySelector(`.task-resources[data-task-id="${taskId}"]`);
+  if (el) el.classList.toggle('open');
+}
+
+function toggleTask(mId, tId) {
+  const month = state.months.find(m => m.id === mId);
+  month.sections.forEach(s => s.tasks.forEach(t => {
+    if (t.id === tId) t.done = !t.done;
+  }));
+  save();
+  render();
+}
+
+function editTask(mId, tId, newText) {
+  newText = newText.trim();
+  if (!newText) { render(); return; }
+  const month = state.months.find(m => m.id === mId);
+  month.sections.forEach(s => s.tasks.forEach(t => {
+    if (t.id === tId) t.text = newText;
+  }));
+  save();
+}
+
+function handleEnter(e, el) {
+  if (e.key === 'Enter') { e.preventDefault(); el.blur(); }
+}
+
+function deleteTask(mId, tId) {
+  const month = state.months.find(m => m.id === mId);
+  month.sections.forEach(s => {
+    s.tasks = s.tasks.filter(t => t.id !== tId);
+  });
+  save(); render(); toast('已删除');
+}
+
+function activateAdd(el) {
+  el.classList.add('active');
+  const input = el.querySelector('.add-input');
+  input.classList.add('active');
+  input.focus();
+}
+
+function addTask(mId, sIdx, input) {
+  const text = input.value.trim();
+  input.value = '';
+  input.classList.remove('active');
+  input.parentElement.classList.remove('active');
+  if (!text) return;
+  const month = state.months.find(m => m.id === mId);
+  month.sections[sIdx].tasks.push({
+    id: 't-' + Date.now() + '-' + Math.random().toString(36).slice(2, 6),
+    text, done: false, resources: []
+  });
+  save(); render();
+  document.querySelector(`.month[data-id="${mId}"]`).classList.add('open');
+}
+
+// ============================================================
+// RESOURCE ACTIONS
+// ============================================================
+function addResource(mId, tId) {
+  const typeEl = document.getElementById(`rtype-${tId}`);
+  const titleEl = document.getElementById(`rtitle-${tId}`);
+  const urlEl = document.getElementById(`rurl-${tId}`);
+
+  const type = typeEl.value;
+  const title = titleEl.value.trim();
+  let url = urlEl.value.trim();
+
+  if (!title || !url) { toast('标题和链接都要填'); return; }
+  if (!/^https?:\/\//.test(url)) url = 'https://' + url;
+
+  const month = state.months.find(m => m.id === mId);
+  month.sections.forEach(s => s.tasks.forEach(t => {
+    if (t.id === tId) {
+      if (!t.resources) t.resources = [];
+      t.resources.push({ type, title, url });
+    }
+  }));
+
+  save(); render();
+  setTimeout(() => {
+    const el = document.querySelector(`.task-resources[data-task-id="${tId}"]`);
+    if (el) el.classList.add('open');
+  }, 0);
+  toast('已添加资料');
+}
+
+function deleteResource(mId, tId, idx) {
+  const month = state.months.find(m => m.id === mId);
+  month.sections.forEach(s => s.tasks.forEach(t => {
+    if (t.id === tId) t.resources.splice(idx, 1);
+  }));
+  save(); render();
+  setTimeout(() => {
+    const el = document.querySelector(`.task-resources[data-task-id="${tId}"]`);
+    if (el) el.classList.add('open');
+  }, 0);
+}
+
+// ============================================================
+// WORK (Portfolio) ACTIONS
+// ============================================================
+function openWorkModal(id) {
+  editingWorkId = id || null;
+  const title = document.getElementById('workModalTitle');
+  const nameEl = document.getElementById('workName');
+  const descEl = document.getElementById('workDesc');
+  const ghEl = document.getElementById('workGithub');
+  const demoEl = document.getElementById('workDemo');
+  const delBtn = document.getElementById('workDeleteBtn');
+
+  if (id) {
+    const w = state.works.find(w => w.id === id);
+    title.textContent = '编辑作品';
+    nameEl.value = w.name || '';
+    descEl.value = w.desc || '';
+    ghEl.value = w.github || '';
+    demoEl.value = w.demo || '';
+    delBtn.style.display = 'inline-block';
+  } else {
+    title.textContent = '添加作品';
+    nameEl.value = descEl.value = ghEl.value = demoEl.value = '';
+    delBtn.style.display = 'none';
+  }
+
+  document.getElementById('workModal').classList.add('open');
+  setTimeout(() => nameEl.focus(), 100);
+}
+
+function closeWorkModal() {
+  document.getElementById('workModal').classList.remove('open');
+  editingWorkId = null;
+}
+
+function saveWork() {
+  const name = document.getElementById('workName').value.trim();
+  const desc = document.getElementById('workDesc').value.trim();
+  let github = document.getElementById('workGithub').value.trim();
+  let demo = document.getElementById('workDemo').value.trim();
+
+  if (!name) { toast('请填写作品名称'); return; }
+
+  if (github && !/^https?:\/\//.test(github)) github = 'https://' + github;
+  if (demo && !/^https?:\/\//.test(demo)) demo = 'https://' + demo;
+
+  if (editingWorkId) {
+    const w = state.works.find(w => w.id === editingWorkId);
+    Object.assign(w, { name, desc, github, demo });
+  } else {
+    state.works.push({
+      id: 'w-' + Date.now(),
+      name, desc, github, demo
+    });
+    if (state.works.length === 1) {
+      setTimeout(() => celebrate('第一个作品!', '这是你求职路上的第一块基石'), 200);
+    }
+  }
+
+  save(); render(); closeWorkModal(); toast('已保存');
+}
+
+function deleteWork() {
+  if (!editingWorkId) return;
+  if (!confirm('确定删除这个作品?')) return;
+  state.works = state.works.filter(w => w.id !== editingWorkId);
+  save(); render(); closeWorkModal(); toast('已删除');
+}
+
+// ============================================================
+// LOG ACTIONS
+// ============================================================
+function openLogModal() {
+  document.getElementById('logModal').classList.add('open');
+  document.getElementById('logInput').value = '';
+  renderLogs();
+  setTimeout(() => document.getElementById('logInput').focus(), 100);
+}
+
+function closeLogModal() {
+  document.getElementById('logModal').classList.remove('open');
+}
+
+function saveLog() {
+  const text = document.getElementById('logInput').value.trim();
+  if (!text) { toast('写点什么吧'); return; }
+  state.logs.unshift({
+    id: 'l-' + Date.now(),
+    date: new Date().toISOString(),
+    text
+  });
+  save();
+  document.getElementById('logInput').value = '';
+  renderLogs();
+  toast('已记录');
+}
+
+function deleteLog(id) {
+  if (!confirm('删除这条日志?')) return;
+  state.logs = state.logs.filter(l => l.id !== id);
+  save(); renderLogs();
+}
+
+function renderLogs() {
+  const list = document.getElementById('logList');
+  if (!state.logs.length) {
+    list.innerHTML = '<div class="log-empty">还没有日志 · 每天一条,一年就是 365 条成长证据</div>';
+    return;
+  }
+  list.innerHTML = state.logs.map(l => {
+    const d = new Date(l.date);
+    const dateStr = `${d.getFullYear()}-${(d.getMonth()+1).toString().padStart(2,'0')}-${d.getDate().toString().padStart(2,'0')} ${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}`;
+    return `
+      <div class="log-item">
+        <div class="log-date">${dateStr}</div>
+        <div class="log-text">${escapeHtml(l.text)}</div>
+        <button class="log-delete" onclick="deleteLog('${l.id}')">×</button>
+      </div>
+    `;
+  }).join('');
+}
+
+// ============================================================
+// DATA IMPORT / EXPORT / RESET
+// ============================================================
+function resetAll() {
+  if (!confirm('重置所有任务到初始状态?作品和日志会保留。')) return;
+  const works = state.works;
+  const logs = state.logs;
+  state = structuredClone(DEFAULT_DATA);
+  state.works = works;
+  state.logs = logs;
+  save(); render(); toast('已重置');
+}
+
+function exportData() {
+  const data = JSON.stringify(state, null, 2);
+  const blob = new Blob([data], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  const d = new Date().toISOString().slice(0, 10);
+  a.download = `ai-dev-tracker-${d}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  toast('已导出');
+}
+
+function importData() {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.json';
+  input.onchange = e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      try {
+        const imported = JSON.parse(ev.target.result);
+        if (Array.isArray(imported)) {
+          state = { months: imported, works: [], logs: [] };
+        } else if (imported.months) {
+          state = imported;
+          if (!state.works) state.works = [];
+          if (!state.logs) state.logs = [];
+        } else { throw new Error(); }
+        save(); render(); toast('导入成功');
+      } catch {
+        toast('文件格式错误');
+      }
+    };
+    reader.readAsText(file);
+  };
+  input.click();
+}
+
+// ============================================================
+// UI HELPERS
+// ============================================================
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 1800);
+}
+
+function celebrate(title, text) {
+  const el = document.getElementById('celebrate');
+  document.getElementById('celebrateTitle').textContent = title;
+  document.getElementById('celebrateText').textContent = text;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2400);
+}
+
+// ============================================================
+// INIT
+// ============================================================
+function init() {
+  const d = new Date();
+  const months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+  document.getElementById('dateBadge').textContent =
+    `${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+
+  // Mark already-completed months so they don't trigger celebration
+  state.months.forEach(m => {
+    let total = 0, done = 0;
+    m.sections.forEach(s => s.tasks.forEach(t => { total++; if (t.done) done++; }));
+    if (total > 0 && done === total) completedMonths.add(m.id);
+  });
+
+  render();
+
+  // Open first month by default
+  const firstMonth = document.querySelector('.month[data-id="m1"]');
+  if (firstMonth) firstMonth.classList.add('open');
+}
+
+init();
+</script>
+
+</body>
+</html>
